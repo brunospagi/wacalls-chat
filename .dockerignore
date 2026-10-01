@@ -1,0 +1,10 @@
+.git
+**/node_modules
+dist
+client/dist
+media
+recordings
+*.db
+*.db-*
+*.exe
+licenca.json

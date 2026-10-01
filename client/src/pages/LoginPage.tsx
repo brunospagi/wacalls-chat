@@ -29,7 +29,7 @@ export const LoginPage = () => {
   const loading = useAuth((s) => s.loading);
   const login = useAuth((s) => s.login);
   const refresh = useAuth((s) => s.refresh);
-  const [email, setEmail] = useState("wacalls@admin.com");
+  const [email, setEmail] = useState(""); // fork revenda: sem credencial padrão na tela
   const [password, setPassword] = useState("");
   const [showPassword, setShowPassword] = useState(false);
   const [submitting, setSubmitting] = useState(false);
@@ -211,26 +211,7 @@ export const LoginPage = () => {
             </p>
           </div>
 
-          <p className="mt-4 text-center text-xs text-muted-foreground">
-            {t("pages.login.sponsoredBy", { defaultValue: "Patrocinado pelo canal" })}{" "}
-            <a
-              href="https://www.youtube.com/@vemfazer"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="font-medium text-primary hover:underline"
-            >
-              Vem Fazer
-            </a>{" "}
-            &amp;{" "}
-            <a
-              href="https://equipechat.com.br"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="font-medium text-primary hover:underline"
-            >
-              equipechat.com.br
-            </a>
-          </p>
+          {/* fork revenda: sem linha de patrocínio (crédito dos autores mantido no LICENSE) */}
         </div>
       </div>
 

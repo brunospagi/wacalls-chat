@@ -23,6 +23,7 @@ func (s *server) routes() http.Handler {
 
 	// Public auth endpoints
 	s.registerAuthRoutes(mux)
+	s.registerRevendaRoutes(mux) // fork revenda: SSO, provisionamento (revenda.go)
 
 	// Authenticated endpoints
 	mux.HandleFunc("GET /api/sessions", s.requireAuth(s.handleSessionList))
@@ -188,7 +189,11 @@ func withCORS(h http.Handler) http.Handler {
 func withSecurityHeaders(h http.Handler) http.Handler {
 	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
 		w.Header().Set("X-Content-Type-Options", "nosniff")
-		w.Header().Set("X-Frame-Options", "DENY")
+		if anc := revendaFrameAncestors(); anc != "" { // fork revenda: só o painel pode embutir
+			w.Header().Set("Content-Security-Policy", "frame-ancestors "+anc)
+		} else {
+			w.Header().Set("X-Frame-Options", "DENY")
+		}
 		w.Header().Set("Referrer-Policy", "strict-origin-when-cross-origin")
 		w.Header().Set("Permissions-Policy", "geolocation=(), microphone=(self), camera=(self)")
 		// HSTS só faz sentido quando a conexão é realmente HTTPS — senão

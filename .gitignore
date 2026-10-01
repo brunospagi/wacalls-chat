@@ -48,3 +48,7 @@ licenca.json
 # binario que o `go build ./cmd/server` deixa na raiz
 /server
 /wacalls
+
+# mídias das conversas (dados pessoais) e gravações: nunca versionar
+/media/
+/recordings/

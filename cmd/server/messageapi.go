@@ -70,6 +70,7 @@ func (s *Session) handleWAMessage(evt *events.Message) {
 	}
 	s.upsertChatMeta(row, evt.Info.PushName, evt.Info.IsGroup)
 	s.mgr.broker.emitMessage(row)
+	revendaNotificarMensagem(s, row, evt.Info.PushName, evt.Info.Timestamp, evt.Info.IsGroup) // fork revenda
 	// If the customer is answering a previously-sent satisfaction survey,
 	// capture the score and skip the regular flow routing for this reply.
 	if captureRatingReply(s.mgr.appCtx, s.mgr.chatMeta, s.log, s.id, row) {
